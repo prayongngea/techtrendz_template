@@ -22,8 +22,7 @@ La navigation permet de voir les pages existantes. Pour la plupart des pages, le
 * Front : Terminer la connexion (login.php + lib/user.php)
 * Front : Terminer la création d'un compte utilisateur (inscription.php + lib/user.php).
 * Front : Terminer l'affichage d'un article front (actualite.php + lib/article.php).
-* Front : Terminer l'affichage de la liste des articles (actualite.php + lib/article.php).
-* Front : Terminer l'affichage de la liste des articles (actualite.php + lib/article.php).
+* Front : Terminer l'affichage de la liste des articles (actualites.php + lib/article.php).
 * Front : Terminer l'affichage des trois derniers articles sur la page d'accueil (index.php + lib/article.php).
 * Admin : Terminer l'affichage de la liste des articles avec pagination (admin/articles.php + lib/article.php).
 * Admin : Terminer l'ajout/modification d'un article (lib/article.php).
