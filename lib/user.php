@@ -2,26 +2,34 @@
 
 function addUser(PDO $pdo, string $first_name, string $last_name, string $email, string $password, $role = "user")
 {
-    /*
-        @todo faire la requête d'insertion d'utilisateur et retourner $query->execute();
-        Attention faire une requête préparer et à binder les paramètres
-    */
+   // On hash le mot de passe avant stockage
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO user (first_name, last_name, email, password, role)
+            VALUES (:first_name, :last_name, :email, :password, :role)";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':first_name', $first_name);
+    $query->bindParam(':last_name', $last_name);
+    $query->bindParam(':email', $email);
+    $query->bindParam(':password', $hashedPassword);
+    $query->bindParam(':role', $role);
+
+    return $query->execute();
 }
 
 function verifyUserLoginPassword(PDO $pdo, string $email, string $password)
 {
-    /*
-        @todo faire une requête qui récupère l'utilisateur par email et stocker le résultat dans user
-        Attention faire une requête préparer et à binder les paramètres
-    */
-    
- 
+   $sql = "SELECT * FROM user WHERE email = :email LIMIT 1";
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':email', $email);
+    $query->execute();
 
-    /*
-        @todo Si on a un utilisateur et que le mot de passe correspond (voir fonction  native password_verify)
-              alors on retourne $user
-              sinon on retourne false
-    */
+    $user = $query->fetch(PDO::FETCH_ASSOC);
 
+    if ($user && password_verify($password, $user['password'])) {
+        return $user;
+    }
 
+    return false;
 }
